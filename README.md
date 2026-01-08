@@ -1,36 +1,35 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 💜 FRAGMENT ARCHIVE
+> **Records of a Midnight Thinker**
 
-## Getting Started
+나의 생각과 개발 기록을 담는 퍼스널 아카이브 공간입니다. 
+카툰풍 스타일과 보랏빛 액센트를 결합한 Next.js 블로그입니다.
 
-First, run the development server:
+[**🌐 공식 블로그 방문하기**](https://my-awesome-blog-gules.vercel.app/)
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+---
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## 📸 Screen Preview
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+<a href="https://my-awesome-blog-gules.vercel.app/">
+  <img src="https://github.com/user-attachments/assets/fd640d33-98c5-4788-af15-80ec5b51ab47" alt="Fragment Blog Preview" width="100%">
+</a>
+</a>
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+*사진을 클릭하면 블로그로 연결됩니다.*
 
-## Learn More
+---
 
-To learn more about Next.js, take a look at the following resources:
+## 🛠 Tech Stack
+- **Framework**: Next.js 14 (App Router)
+- **Deployment**: [Vercel](https://vercel.com/)
+- **Design Concept**: Japanese Minimalist & Cyberpunk Aesthetic
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+---
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## 🚀 Status
+- **System Version**: 4.0.2
+- **Connectivity**: Stable Connected_
+- **URL**: [https://my-awesome-blog-gules.vercel.app/](https://my-awesome-blog-gules.vercel.app/)
 
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+---
+© 2026 FRAGMENT_ARCHIVE // ALL RIGHTS RESERVED.

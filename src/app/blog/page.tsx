@@ -73,7 +73,7 @@ const sideMenus = [
         </div>
       </div>
 
-      {/* 3. 중앙 404 로고 (적 대형 컨셉) */}
+      {/* 3. 중앙 404 로고 */}
       <div style={{
         position: 'absolute',
         top: '40%',
@@ -103,7 +103,7 @@ const sideMenus = [
         </div>
       </div>
 
-      {/* 4. 하단 메뉴 (조작부 컨셉) */}
+      {/* 4. 하단 메뉴 */}
       <nav style={{
         position: 'absolute',
         bottom: '100px',

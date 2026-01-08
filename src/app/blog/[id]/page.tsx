@@ -36,23 +36,32 @@ export default async function PostPage({ params }: { params: Promise<{ id: strin
             OTHER_LOGS
           </h3>
           <div style={{ display: 'flex', flexDirection: 'column', gap: '15px' }}>
-            {allPosts.map((p) => (
-              <Link key={p.id} href={`/blog/${p.id}`} style={{ textDecoration: 'none' }}>
-                <div style={{ 
-                  display: 'flex', gap: '10px', padding: '8px', 
-                  border: p.id === id ? '1px solid #ff00ff' : '1px solid #111',
-                  backgroundColor: p.id === id ? '#111' : 'transparent'
-                }}>
-                  <img src={p.thumbnail || '/no-image.png'} style={{ width: '50px', height: '50px', objectFit: 'cover', flexShrink: 0 }} />
-                  <div style={{ overflow: 'hidden' }}>
-                    <div style={{ color: p.id === id ? '#ffff00' : '#ccc', fontSize: '12px', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
-                      {p.title}
-                    </div>
-                    <div style={{ color: '#555', fontSize: '10px' }}>{p.date}</div>
-                  </div>
-                </div>
-              </Link>
-            ))}
+{allPosts.map((p) => {
+  // 여기에 로그를 찍습니다.
+  console.log("포스트 p 데이터 확인:", p); 
+
+  return (
+    <Link key={p.id} href={`/blog/${p.id}`} style={{ textDecoration: 'none' }}>
+      <div style={{ 
+        display: 'flex', gap: '10px', padding: '8px', 
+        border: p.id === id ? '1px solid #ff00ff' : '1px solid #111',
+        backgroundColor: p.id === id ? '#111' : 'transparent'
+      }}>
+        {/* as any를 써서 타입 에러 방지 */}
+        <img 
+          src={(p as any).thumbnail || '/no-image.png'} 
+          style={{ width: '50px', height: '50px', objectFit: 'cover', flexShrink: 0 }} 
+        />
+        <div style={{ overflow: 'hidden' }}>
+          <div style={{ color: p.id === id ? '#ffff00' : '#ccc', fontSize: '12px', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
+            {p.title}
+          </div>
+          <div style={{ color: '#555', fontSize: '10px' }}>{p.date}</div>
+        </div>
+      </div>
+    </Link>
+  );
+})}
           </div>
         </aside>
 

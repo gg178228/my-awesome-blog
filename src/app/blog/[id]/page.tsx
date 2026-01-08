@@ -11,104 +11,133 @@ export default async function PostPage({ params }: { params: Promise<{ id: strin
   if (!post) return notFound();
 
   return (
-    <div style={{ backgroundColor: 'black', minHeight: '100vh', color: 'white' }}>
+    <div style={{ backgroundColor: '#000', minHeight: '100vh', color: '#fff', fontFamily: '"Inter", sans-serif' }}>
       
-      {/* 컨테이너: 화면이 좁아지면 flex-direction을 column으로 바꾸는 효과 */}
-      <div style={{ 
-        display: 'flex', 
-        flexWrap: 'wrap', // 화면 좁으면 아래로 떨어지게 함
-        maxWidth: '1200px', 
-        margin: '0 auto', 
-        padding: '20px'
-      }}>
-        
-        {/* [사이드바] 모바일에서는 위, PC에서는 왼쪽 */}
-        <aside style={{ 
-          flex: '1 1 250px', // 최소 250px 확보, 공간 없으면 줄바꿈
-          maxWidth: '300px',
-          borderRight: '1px solid #222', 
-          paddingRight: '20px',
-          marginBottom: '40px',
-          maxHeight: '80vh', // 너무 길면 사이드바만 스크롤
-          overflowY: 'auto' 
-        }}>
-          <h3 style={{ color: '#00ffff', fontSize: '14px', marginBottom: '20px', position: 'sticky', top: 0, backgroundColor: 'black' }}>
-            OTHER_LOGS
-          </h3>
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '15px' }}>
-{allPosts.map((p) => {
-  // 여기에 로그를 찍습니다.
-  console.log("포스트 p 데이터 확인:", p); 
+      <style>{`
+        /* 🚩 반응형 레이아웃 설정 */
+        .container {
+          display: flex;
+          max-width: 1200px;
+          margin: 0 auto;
+          flex-direction: row;
+        }
 
-  return (
-    <Link key={p.id} href={`/blog/${p.id}`} style={{ textDecoration: 'none' }}>
-      <div style={{ 
-        display: 'flex', gap: '10px', padding: '8px', 
-        border: p.id === id ? '1px solid #ff00ff' : '1px solid #111',
-        backgroundColor: p.id === id ? '#111' : 'transparent'
-      }}>
-        {/* as any를 써서 타입 에러 방지 */}
-        <img 
-          src={(p as any).thumbnail || '/no-image.png'} 
-          style={{ width: '50px', height: '50px', objectFit: 'cover', flexShrink: 0 }} 
-        />
-        <div style={{ overflow: 'hidden' }}>
-          <div style={{ color: p.id === id ? '#ffff00' : '#ccc', fontSize: '12px', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
-            {p.title}
+        /* 화면이 1024px보다 작아지면 사이드바를 숨기거나 아래로 보냄 */
+        @media (max-width: 1024px) {
+          .container { flex-direction: column; }
+          .sidebar { 
+            width: 100% !important; 
+            border-right: none !important; 
+            border-top: 1px solid #111; 
+            order: 2; /* 본문 뒤로 보냄 */
+            height: auto !important;
+            position: static !important;
+          }
+          .main-content { padding: 40px 20px !important; }
+        }
+
+        .violet-tag {
+          background: #7F00FF;
+          display: inline-block;
+          padding: 3px 12px;
+          transform: skewX(-15deg);
+          margin-bottom: 15px;
+        }
+
+        .log-item {
+          display: flex;
+          gap: 12px;
+          padding: 10px;
+          border-left: 2px solid transparent;
+          transition: 0.2s;
+        }
+        .log-item:hover { background: #080808; border-left: 2px solid #7F00FF; }
+        .log-item.active { background: #111; border-left: 2px solid #7F00FF; }
+
+        .article-body { font-size: 1.1rem; line-height: 1.8; color: #bbb; }
+        .article-body h2 { color: #fff; margin: 50px 0 20px 0; font-size: 1.8rem; font-weight: 800; border-bottom: 1px solid #111; padding-bottom: 10px; }
+        .article-body p { margin-bottom: 25px; }
+      `}</style>
+
+      <div className="container">
+        
+        {/* [사이드바] 반응형으로 크기 조절됨 */}
+        <aside className="sidebar" style={{ 
+          width: '280px', 
+          flexShrink: 0,
+          padding: '80px 20px', 
+          borderRight: '1px solid #111',
+          height: '100vh',
+          position: 'sticky',
+          top: 0,
+          overflowY: 'auto'
+        }}>
+          <div style={{ marginBottom: '30px' }}>
+            <Link href="/blog" style={{ color: '#444', fontSize: '10px', fontWeight: 900, textDecoration: 'none', letterSpacing: '1px' }}>
+              {`< BACK_TO_DATABASE`}
+            </Link>
           </div>
-          <div style={{ color: '#555', fontSize: '10px' }}>{p.date}</div>
-        </div>
-      </div>
-    </Link>
-  );
-})}
+
+          <p style={{ fontSize: '10px', color: '#222', fontWeight: 900, marginBottom: '20px' }}>RELATED_LOGS</p>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
+            {allPosts.map((p) => (
+              <Link key={p.id} href={`/blog/${p.id}`} style={{ textDecoration: 'none' }}>
+                <div className={`log-item ${p.id === id ? 'active' : ''}`}>
+                  {/* 🚩 썸네일 복구 */}
+                  <img 
+                    src={(p as any).thumbnail || '/no-image.png'} 
+                    style={{ width: '40px', height: '40px', objectFit: 'cover', opacity: p.id === id ? 1 : 0.4 }} 
+                  />
+                  <div style={{ overflow: 'hidden' }}>
+                    <div style={{ 
+                      fontSize: '12px', 
+                      fontWeight: 700, 
+                      color: p.id === id ? '#fff' : '#555',
+                      whiteSpace: 'nowrap',
+                      overflow: 'hidden',
+                      textOverflow: 'ellipsis'
+                    }}>
+                      {p.title}
+                    </div>
+                    <div style={{ fontSize: '9px', color: '#222', marginTop: '2px' }}>{p.date}</div>
+                  </div>
+                </div>
+              </Link>
+            ))}
           </div>
         </aside>
 
-      {/* [본문] 남는 공간을 다 채움 */}
-        <main style={{ flexGrow: 1, maxWidth: '800px', padding: '0 20px 100px 20px' }}>
-          
-          {/* 🚩 상단 블로그 타이틀 헤더 추가 */}
-          <nav style={{ marginBottom: '60px' }}>
-            <Link href="/blog" style={{ 
-              textDecoration: 'none', 
-              color: '#555', // 평소엔 차분한 회색
-              fontSize: '12px', 
-              fontFamily: 'monospace',
-              letterSpacing: '3px',
-              transition: '0.3s'
-            }}>
-              {`// RETURN_TO_HOME [ LOG_DATABASE ]`}
-            </Link>
-          </nav>
-
-          {/* 기존 제목 섹션 */}
-          <header style={{ marginBottom: '40px' }}>
+        {/* [본문] 중앙 집중형 */}
+        <main className="main-content" style={{ flex: 1, padding: '80px 80px 100px 80px', maxWidth: '900px' }}>
+          <header style={{ marginBottom: '60px' }}>
+            <div className="violet-tag">
+              <span style={{ color: '#fff', fontWeight: 900, fontSize: '10px', transform: 'skewX(15deg)', display: 'block' }}>
+                {(post as any).category || 'LOG'}
+              </span>
+            </div>
+            
             <h1 style={{ 
-              fontSize: 'clamp(1.5rem, 4vw, 2.5rem)', 
-              color: '#ffff00', 
-              lineHeight: '1.2',
-              margin: 0 
+              fontSize: 'clamp(2rem, 5vw, 3.5rem)', 
+              fontWeight: 900, 
+              lineHeight: 1.1, 
+              letterSpacing: '-2px',
+              margin: '10px 0'
             }}>
               {post.title}
             </h1>
-            <div style={{ color: '#444', fontSize: '12px', marginTop: '10px' }}>
-              POSTED_AT: {post.date}
+            
+            <div style={{ fontSize: '11px', color: '#333', marginTop: '20px', fontWeight: 700 }}>
+              FILE_DATA: {post.date} // {post.id}
             </div>
           </header>
-          
-          <article style={{ fontSize: '1.1rem', lineHeight: '1.8', color: '#e0e0e0', wordBreak: 'keep-all' }}>
+
+          <article className="article-body">
             <MDXRemote source={post.content} />
           </article>
 
-          {/* 하단 시스템 메시지만 가볍게 남김 */}
-          <footer style={{ marginTop: '80px', borderTop: '1px solid #111', paddingTop: '20px' }}>
-            <p style={{ color: '#222', fontSize: '10px', letterSpacing: '1px' }}>
-              END_OF_LOG // ID: {post.id}
-            </p>
+          <footer style={{ marginTop: '150px', borderTop: '1px solid #111', paddingTop: '20px' }}>
+             <span style={{ fontSize: '10px', color: '#222', fontWeight: 900 }}>© SYSTEM_V4 // TERMINAL_CLOSED</span>
           </footer>
-  
-
         </main>
 
       </div>

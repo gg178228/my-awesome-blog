@@ -1,0 +1,28 @@
+/* src/app/globals.css 맨 밑에 복사 */
+
+/* 라이브러리 설정 강제 초기화 및 직접 스타일링 */
+.direct-style h1, .direct-style h2, .direct-style h3 {
+  color: #ffff00 !important; /* 무조건 노란색 */
+  margin: 1.5em 0 0.8em 0 !important;
+  font-weight: bold !important;
+}
+
+.direct-style h2 {
+  font-size: 1.8rem !important;
+  border-left: 5px solid #ff00ff !important;
+  padding-left: 15px !important;
+}
+
+.direct-style p {
+  margin-bottom: 1.5em !important;
+}
+
+.direct-style strong {
+  color: #ff00ff !important; /* 즛토마요 핑크 */
+}
+
+.direct-style ul {
+  padding-left: 20px !important;
+  list-style-type: square !important;
+  color: #00ffff !important;
+}

@@ -1,0 +1,13 @@
+---
+title: "MISSION_COMPLETE: THE_FIRST_LOG"
+date: "2026-01-07"
+---
+
+# 재미나이 개새기 진짜..
+
+e
+
+**오늘의 상태:**
+8시간 삽질한 결과물
+
+![alt text](/images/2026-01-08-01-20-02.png)
